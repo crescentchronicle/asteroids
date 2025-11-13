@@ -20,7 +20,10 @@ def main():
     print("Screen height:", SCREEN_HEIGHT)
 
     dt = 0
-    
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable) # type: ignore
+
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
 
@@ -31,10 +34,11 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
-        player.update(dt)
+        updatable.update(dt)
 
         pygame.Surface.fill(screen, (0, 0, 0))
-        player.draw(screen)
+        for entity in drawable:
+            entity.draw(screen)
         pygame.display.flip()
 
 
