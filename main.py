@@ -55,6 +55,13 @@ def main():
                 print("Game over!")
                 sys.exit()
 
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.radius + shot.radius >= pygame.math.Vector2.distance_to(asteroid.position, shot.position):
+                    log_event("asteroid_shot")
+                    asteroid.split()
+                    shot.kill()
+
         pygame.Surface.fill(screen, (0, 0, 0))
         for entity in drawable:
             entity.draw(screen)
